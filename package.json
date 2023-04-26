@@ -17,7 +17,7 @@
     "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "start": "concurrently \"cd server && npm run start\" \"cd client && npm start\"",
+    "start": "cd server && npm run start",
     "dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
