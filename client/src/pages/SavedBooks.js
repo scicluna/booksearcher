@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Container,
   Card,
@@ -17,7 +17,7 @@ import { removeBookId } from '../utils/localStorage';
 const SavedBooks = () => {
 
 
-  const [removeBook, { err, book }] = useMutation(REMOVE_BOOK)
+  const [removeBook] = useMutation(REMOVE_BOOK)
   const { loading, data } = useQuery(GET_ME, {
     variables: { userId: Auth.getProfile().data._id }
   })
@@ -34,7 +34,7 @@ const SavedBooks = () => {
     }
 
     try {
-      const deletedBook = userData.savedBooks.find(book => book.bookId === bookId)
+      const { __typename, ...deletedBook } = userData.savedBooks.find(book => book.bookId === bookId);
 
       await removeBook({
         variables: { userId: userData._id, book: deletedBook }
@@ -53,7 +53,7 @@ const SavedBooks = () => {
 
   return (
     <>
-      <div fluid className='text-light bg-dark p-5'>
+      <div className='text-light bg-dark p-5'>
         <Container>
           <h1>Viewing saved books!</h1>
         </Container>
@@ -67,8 +67,8 @@ const SavedBooks = () => {
         <Row>
           {userData.savedBooks.map((book) => {
             return (
-              <Col md="4">
-                <Card key={book.bookId} border='dark'>
+              <Col md="4" key={book.bookId} >
+                <Card border='dark'>
                   {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}
                   <Card.Body>
                     <Card.Title>{book.title}</Card.Title>
