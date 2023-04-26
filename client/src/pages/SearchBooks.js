@@ -73,20 +73,21 @@ const SearchBooks = () => {
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
+    console.log(Auth.getProfile().data._id)
+
     if (!token) {
       return false;
     }
 
+    console.log(Auth.getProfile().data._id)
+    console.log(bookToSave)
     //gql mutation
     try {
-      const response = await saveBook({
-        variables: { ...bookToSave }
+      const { data } = await saveBook({
+        variables: { userId: Auth.getProfile().data._id, book: bookToSave }
       })
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
+      console.log(data)
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
