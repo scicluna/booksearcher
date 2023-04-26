@@ -73,14 +73,10 @@ const SearchBooks = () => {
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    console.log(Auth.getProfile().data._id)
-
     if (!token) {
       return false;
     }
 
-    console.log(Auth.getProfile().data._id)
-    console.log(bookToSave)
     //gql mutation
     try {
       const { data } = await saveBook({

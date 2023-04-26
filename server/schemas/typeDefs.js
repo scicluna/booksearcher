@@ -34,7 +34,7 @@ const typeDefs = gql`
     }
 
     type Query{
-        getme(_id: ID!): User
+        getme(userId: ID!): User
     }
 
     type Mutation{

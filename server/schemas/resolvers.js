@@ -4,8 +4,8 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        getme: async (parent, { profileId }) => {
-            return User.findOne({ _id: profileId })
+        getme: async (parent, { userId }) => {
+            return User.findOne({ _id: userId })
         }
     },
 
@@ -47,6 +47,7 @@ const resolvers = {
                 { $pull: { savedBooks: book } },
                 { new: true }
             )
+            return user
         }
     }
 }
