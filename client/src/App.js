@@ -1,12 +1,13 @@
+//IMPORTS
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
-
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+//Create our httpLink for graphql
 const httpLink = createHttpLink({
   uri: '/graphql'
 })
@@ -25,13 +26,13 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+//Establishes our apolloclient and appends the authtoken to it.
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 })
 
-
-
+//jsx wrapped with ApolloProvider so that we have access to gql in our app
 function App() {
   return (
     <ApolloProvider client={client}>

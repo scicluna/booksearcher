@@ -1,20 +1,23 @@
+//IMPORTS
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express')
 const { authMiddleware } = require('./utils/auth')
 const { typeDefs, resolvers } = require('./schemas')
-
 const path = require('path');
 const db = require('./config/connection');
 
+//Set up express server with express() and a port number
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+//Init apollo server
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: authMiddleware
 })
 
+//Middleware boilerplate
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -23,6 +26,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
+// Serve our app for heroku purposes
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'))
 })

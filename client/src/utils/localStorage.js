@@ -1,3 +1,4 @@
+//util function to retrieve saved books from local storage
 export const getSavedBookIds = () => {
   const savedBookIds = localStorage.getItem('saved_books')
     ? JSON.parse(localStorage.getItem('saved_books'))
@@ -6,6 +7,7 @@ export const getSavedBookIds = () => {
   return savedBookIds;
 };
 
+//util function to save books to local storage
 export const saveBookIds = (bookIdArr) => {
   if (bookIdArr.length) {
     localStorage.setItem('saved_books', JSON.stringify(bookIdArr));
@@ -14,6 +16,7 @@ export const saveBookIds = (bookIdArr) => {
   }
 };
 
+//util function to remove books from local storage
 export const removeBookId = (bookId) => {
   const savedBookIds = localStorage.getItem('saved_books')
     ? JSON.parse(localStorage.getItem('saved_books'))
